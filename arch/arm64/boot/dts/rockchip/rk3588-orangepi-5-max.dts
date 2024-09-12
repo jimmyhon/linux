@@ -40,6 +40,16 @@
 		};
 	};
 
+	vcc3v3_pcie_eth: vcc3v3-pcie-eth-regulator {
+		compatible = "regulator-fixed";
+		gpios = <&gpio0 RK_PD3 GPIO_ACTIVE_LOW>;
+		regulator-name = "vcc3v3_pcie_eth";
+		regulator-min-microvolt = <3300000>;
+		regulator-max-microvolt = <3300000>;
+		startup-delay-us = <50000>;
+		vin-supply = <&vcc5v0_sys>;
+	};
+
 	vcc5v0_sys: vcc5v0-sys-regulator {
 		compatible = "regulator-fixed";
 		regulator-name = "vcc5v0_sys";
@@ -48,6 +58,10 @@
 		regulator-min-microvolt = <5000000>;
 		regulator-max-microvolt = <5000000>;
 	};
+};
+
+&combphy2_psu {
+	status = "okay";
 };
 
 &cpu_b0 {
@@ -137,6 +151,13 @@
 		pinctrl-0 = <&hym8563_int>;
 		wakeup-source;
 	};
+};
+
+/* phy2 */
+&pcie2x1l1 {
+	reset-gpios = <&gpio4 RK_PD4 GPIO_ACTIVE_HIGH>;
+	vpcie3v3-supply = <&vcc3v3_pcie_eth>;
+	status = "okay";
 };
 
 &pinctrl {
