@@ -20,6 +20,15 @@
 		stdout-path = "serial2:1500000n8";
 	};
 
+	fan: pwm-fan {
+		compatible = "pwm-fan";
+		cooling-levels = <0 70 75 80 100>;
+		fan-supply = <&vcc5v0_sys>;
+		/* FAN_CTL_H */
+		pwms = <&pwm9 0 50000 0>;
+		#cooling-cells = <2>;
+	};
+
 	pwm-leds {
 		compatible = "pwm-leds";
 
@@ -230,6 +239,12 @@
 &pwm5 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&pwm5m1_pins>;
+	status = "okay";
+};
+
+&pwm9 {
+	pinctrl-names = "active";
+	pinctrl-0 = <&pwm9m2_pins>;
 	status = "okay";
 };
 
