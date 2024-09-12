@@ -3,6 +3,7 @@
 /dts-v1/;
 
 #include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/leds/common.h>
 #include <dt-bindings/pinctrl/rockchip.h>
 #include "rk3588.dtsi"
 
@@ -17,6 +18,26 @@
 
 	chosen {
 		stdout-path = "serial2:1500000n8";
+	};
+
+	gpio-leds {
+		compatible = "gpio-leds";
+		pinctrl-names = "default";
+		pinctrl-0 = <&leds_rgb>;
+
+		blue_led {
+			color = <LED_COLOR_ID_BLUE>;
+			function = LED_FUNCTION_STATUS;
+			gpios = <&gpio0 RK_PC5 GPIO_ACTIVE_HIGH>;
+			linux,default-trigger = "heartbeat";
+		};
+
+		green_led {
+			color = <LED_COLOR_ID_GREEN>;
+			function = LED_FUNCTION_STATUS;
+			gpios = <&gpio0 RK_PC6 GPIO_ACTIVE_HIGH>;
+			linux,default-trigger = "heartbeat";
+		};
 	};
 
 	vcc5v0_sys: vcc5v0-sys-regulator {
@@ -97,6 +118,15 @@
 
 		regulator-state-mem {
 			regulator-off-in-suspend;
+		};
+	};
+};
+
+&pinctrl {
+	leds {
+		leds_rgb: leds_rgb {
+			rockchip,pins = <0 RK_PC5 RK_FUNC_GPIO &pcfg_pull_up>,
+				<0 RK_PC6 RK_FUNC_GPIO &pcfg_pull_up>;
 		};
 	};
 };
