@@ -111,6 +111,8 @@
 	};
 
 	/* Represents the vcc5v0_usb20 in the schematic */
+	/* Also represents the vcc5v0_usb30 in the schematic,
+	   both regulators share the same enable gpio */
 	vcc5v0_host: vcc5v0-host-regulator {
 		compatible = "regulator-fixed";
 		enable-active-high;
@@ -634,6 +636,15 @@
 	status = "okay";
 };
 
+&u2phy1 {
+	status = "okay";
+};
+
+&u2phy1_otg {
+	phy-supply = <&vcc5v0_host>;
+	status = "okay";
+};
+
 &u2phy2 {
 	status = "okay";
 };
@@ -657,6 +668,10 @@
 	status = "okay";
 };
 
+&usbdp_phy1 {
+	status = "okay";
+};
+
 &usb_host0_ehci {
 	status = "okay";
 };
@@ -670,5 +685,10 @@
 };
 
 &usb_host1_ohci {
+	status = "okay";
+};
+
+&usb_host1_xhci {
+	dr_mode = "host";
 	status = "okay";
 };
