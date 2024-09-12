@@ -53,6 +53,18 @@
 		vin-supply = <&vcc5v0_sys>;
 	};
 
+	/* pcie eth. not a real regulator. 33VAUX */
+	vcc_3v3_aux: vcc-3v3-aux-regulator {
+		compatible = "regulator-fixed";
+		/* Ethernet_power_en */
+		gpios = <&gpio0 RK_PD3 GPIO_ACTIVE_LOW>;
+		regulator-name = "33vaux";
+		regulator-min-microvolt = <3300000>;
+		regulator-max-microvolt = <3300000>;
+		startup-delay-us = <50000>;
+		vin-supply = <&vcc_3v3_s3>;
+	};
+
 	/* Regulator is enabled whenever vcc_1v8_s0 is on */
 	vcc_3v3_s0: vcc-3v3-s0-regulator {
 		compatible = "regulator-fixed";
@@ -76,6 +88,10 @@
 		regulator-min-microvolt = <5000000>;
 		regulator-max-microvolt = <5000000>;
 	};
+};
+
+&combphy2_psu {
+	status = "okay";
 };
 
 &cpu_b0 {
@@ -166,6 +182,13 @@
 		pinctrl-0 = <&hym8563_int>;
 		wakeup-source;
 	};
+};
+
+/* phy2 */
+&pcie2x1l1 {
+	reset-gpios = <&gpio4 RK_PD4 GPIO_ACTIVE_HIGH>;
+	vpcie3v3-supply = <&vcc_3v3_aux>;
+	status = "okay";
 };
 
 &pinctrl {
