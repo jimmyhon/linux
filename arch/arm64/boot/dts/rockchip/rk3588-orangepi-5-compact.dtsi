@@ -7,6 +7,13 @@
 #include "rk3588-orangepi-5.dtsi"
 
 / {
+	rfkill {
+		compatible = "rfkill-gpio";
+		label = "rfkill-sdio-wlan";
+		radio-type = "wlan";
+		shutdown-gpios = <&gpio2 RK_PC5 GPIO_ACTIVE_HIGH>;
+	};
+
 	vcc5v0_usb30_otg: vcc5v0-usb30-otg-regulator {
 		compatible = "regulator-fixed";
 		enable-active-high;
