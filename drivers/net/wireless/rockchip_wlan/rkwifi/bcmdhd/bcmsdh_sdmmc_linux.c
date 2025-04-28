@@ -249,6 +249,7 @@ static const struct sdio_device_id bcmsdh_sdmmc_ids[] = {
 	{ SDIO_DEVICE(SDIO_VENDOR_ID_BROADCOM, SDIO_ANY_ID) },
 	{ SDIO_DEVICE(SDIO_VENDOR_ID_BROADCOM, BCM4381_CHIP_ID) },
 	{ SDIO_DEVICE(SDIO_VENDOR_ID_BROADCOM, BCM4382_CHIP_ID) },
+	// brcmf_sdmmc_ids[]
 	{ SDIO_DEVICE(SDIO_VENDOR_ID_SYNAPTICS, BCM43711_CHIP_ID) },
 	{ SDIO_DEVICE_CLASS(SDIO_CLASS_NONE)		},
 	{ 0, 0, 0, 0 /* end: all zeroes */
