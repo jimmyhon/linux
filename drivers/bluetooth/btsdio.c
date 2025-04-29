@@ -287,7 +287,7 @@ static int btsdio_probe(struct sdio_func *func,
 	/* Broadcom devices soldered onto the PCB (non-removable) use an
 	 * UART connection for Bluetooth, ignore the BT SDIO interface.
 	 */
-	if (func->vendor == SDIO_VENDOR_ID_BROADCOM &&
+	if ((func->vendor == SDIO_VENDOR_ID_BROADCOM || func->vendor == SDIO_VENDOR_ID_SYNAPTICS) &&
 	    !mmc_card_is_removable(func->card->host)) {
 		switch (func->device) {
 		case SDIO_DEVICE_ID_BROADCOM_43341:
@@ -296,6 +296,8 @@ static int btsdio_probe(struct sdio_func *func,
 		case SDIO_DEVICE_ID_BROADCOM_43455:
 		case SDIO_DEVICE_ID_BROADCOM_4356:
 		case SDIO_DEVICE_ID_BROADCOM_CYPRESS_4373:
+		case SDIO_DEVICE_ID_BROADCOM_CYPRESS_43752:
+		case SDIO_DEVICE_ID_BROADCOM_SYNAPTICS_43711:
 			return -ENODEV;
 		}
 	}
