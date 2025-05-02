@@ -527,6 +527,7 @@ dhd_conf_legacy_otp_chip(dhd_pub_t *dhd)
 			chip == BCM4359_CHIP_ID || chip == BCM43012_CHIP_ID ||
 			chip == BCM43752_CHIP_ID ||
 			chip == BCM43756_CHIP_ID || chip == BCM43711_CHIP_ID) {
+		// legacy OTP?
 		return true;
 	}
 
@@ -557,6 +558,7 @@ dhd_conf_legacy_cto_chip(uint16 chip)
 	if (chip == BCM4359_CHIP_ID ||
 			chip == BCM43752_CHIP_ID || chip == BCM4375_CHIP_ID ||
 			chip == BCM43756_CHIP_ID || chip == BCM43711_CHIP_ID) {
+		// Only used for PCIE? CTO prevention?
 		return true;
 	}
 
@@ -4941,6 +4943,7 @@ dhd_conf_set_intr_extn(dhd_pub_t *dhd)
 			chip == BCM4375_CHIP_ID || chip == BCM43756_CHIP_ID ||
 			chip == BCM43711_CHIP_ID ||
 			chip == BCM4381_CHIP_ID || chip == BCM4382_CHIP_ID) {
+		// intr_extn? for SDIO_ISR_THREAD
 		CONFIG_TRACE("enable intr_extn\n");
 		dhd->conf->intr_extn = TRUE;
 	}
@@ -4979,6 +4982,7 @@ dhd_conf_tput_improve(dhd_pub_t *dhd)
 			chip == BCM4375_CHIP_ID ||
 			chip == BCM43711_CHIP_ID || chip == BCM43756_CHIP_ID ||
 			chip == BCM4381_CHIP_ID || chip == BCM4382_CHIP_ID) {
+		// TPUT?
 		CONFIG_TRACE("enable tput parameters\n");
 #ifdef DHDTCPACK_SUPPRESS
 #ifdef BCMSDIO
@@ -4986,11 +4990,13 @@ dhd_conf_tput_improve(dhd_pub_t *dhd)
 #endif
 #endif
 #if defined(BCMSDIO)
+		// Also used by BCM34752
 		dhd_rxbound = 128;
 		dhd_txbound = 64;
 #endif
 		conf->frameburst = 1;
 #ifdef BCMSDIO
+		// Also used by BCM34752
 		conf->dhd_txminmax = -1;
 		conf->txinrx_thres = 128;
 #endif
@@ -5254,6 +5260,7 @@ dhd_conf_preinit(dhd_pub_t *dhd)
 	else if ((conf->chip == BCM43752_CHIP_ID && conf->chiprev == 4) ||
 			conf->chip == BCM43756_CHIP_ID || conf->chip == BCM43711_CHIP_ID ||
 			conf->chip == BCM4381_CHIP_ID || conf->chip == BCM4382_CHIP_ID) {
+		// init Country Code
 		strcpy(conf->cspec.country_abbrev, "US");
 		strcpy(conf->cspec.ccode, "US");
 		conf->cspec.rev = 0;
@@ -5404,9 +5411,11 @@ dhd_conf_preinit(dhd_pub_t *dhd)
 	conf->in4way |= STA_REASSOC_RETRY;
 #endif
 	if (conf->chip == BCM43752_CHIP_ID)
+		// 3 more flags set
 		conf->war = SET_CHAN_INCONN | FW_REINIT_INCSA | FW_REINIT_EMPTY_SCAN |
 			FW_REINIT_RXF0OVFL;
 	else if (conf->chip == BCM43711_CHIP_ID)
+		// Simpler than BCM43752
 		conf->war = SET_CHAN_INCONN;
 	else
 		conf->war = 0;
@@ -5426,6 +5435,7 @@ dhd_conf_preinit(dhd_pub_t *dhd)
 	if (conf->chip == BCM43752_CHIP_ID || conf->chip == BCM43756_CHIP_ID ||
 			conf->chip == BCM43711_CHIP_ID ||
 			conf->chip == BCM4381_CHIP_ID || conf->chip == BCM4382_CHIP_ID)
+		// More TPUT
 		conf->doflow_tput_thresh = 200;
 	else
 		conf->doflow_tput_thresh = 9999;
@@ -5440,6 +5450,7 @@ dhd_conf_preinit(dhd_pub_t *dhd)
 	if (conf->chip == BCM43752_CHIP_ID || conf->chip == BCM4375_CHIP_ID ||
 			conf->chip == BCM43756_CHIP_ID || conf->chip == BCM43711_CHIP_ID ||
 			conf->chip == BCM4381_CHIP_ID || conf->chip == BCM4382_CHIP_ID)
+		// More TPUT
 		conf->scan_tput_thresh = 100;
 	else
 		conf->scan_tput_thresh = 9999;
@@ -5473,6 +5484,7 @@ dhd_conf_preinit(dhd_pub_t *dhd)
 	if (conf->chip == BCM43752_CHIP_ID || conf->chip == BCM4375_CHIP_ID ||
 			conf->chip == BCM43756_CHIP_ID || conf->chip == BCM43711_CHIP_ID ||
 			conf->chip == BCM4381_CHIP_ID || conf->chip == BCM4382_CHIP_ID) {
+		// More TPUT
 		conf->tput_patch = TRUE;
 		dhd_conf_set_tput_patch(dhd);
 	}
