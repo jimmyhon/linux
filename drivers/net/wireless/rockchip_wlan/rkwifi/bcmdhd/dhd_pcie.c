@@ -10446,6 +10446,8 @@ dhd_apply_d11_war_length(struct  dhd_bus *bus, uint32 len, uint32 d11_lpbk)
 		chipid == BCM43756_CHIP_ID ||
 		chipid == BCM43711_CHIP_ID) &&
 		(d11_lpbk != M2M_DMA_LPBK && d11_lpbk != M2M_NON_DMA_LPBK)) {
+			// Also used by 43752
+			// Is this only used by the PCIe version? or can the SDIO call this too?
 			len += 8;
 	}
 	DHD_ERROR(("%s: len %d\n", __FUNCTION__, len));
@@ -14869,6 +14871,7 @@ dhdpcie_chipmatch(uint16 vendor, uint16 device)
 		case BCM43756E_D11AX6E_ID:
 		case BCM43756E_D11AC_ID:
 		case BCM43756E_D11AX_ID:
+			// In the same list as the BCM43752
 		case BCM43711_CHIP_ID:
 		case BCM43711_D11AX6E_ID:
 		case BCM43711_D11AC_ID:

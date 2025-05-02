@@ -218,6 +218,7 @@
 #define BCM43751_CHIP_ID	0xAAE7          /* 43751 chipcommon chipid */
 #define BCM43752_CHIP_ID	0xAAE8          /* 43752 chipcommon chipid */
 #define BCM43756_CHIP_ID	0xAAEC          /* 43756 chipcommon chipid */
+// SYN_CC_43711_CHIP_ID
 #define BCM43711_CHIP_ID	0xAABF          /* 43711 chipcommon chipid */
 #define BCM4369_CHIP_ID		0x4369          /* 4369 chipcommon chipid */
 #define BCM4377_CHIP_ID		0x4377          /* 4377 chipcommon chipid */
